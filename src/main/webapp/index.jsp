@@ -9,10 +9,10 @@
 <body>
 Formularz do wyliczania rat kredytu!
 	<form action="kalkulator" method="post">
-		<label>Wnioskowana kwota kredytu:<input type="number" id="kwota" name="kwota"/></label><br>
-		<label>Ilosc rat:<input type="number" id="ilosc" name="ilosc"/></label><br>
-		<label>Oprocentowanie:<input type="number" id="oproc" name="oproc"/></label><br>
-		<label>Oplata stala:<input type="number" id="stala" name="stala"/></label><br>
+		<label>Wnioskowana kwota kredytu:<input min="1" type="number" id="kwota" name="kwota"/></label><br>
+		<label>Ilosc rat:<input type="number" min="1" id="ilosc" name="ilosc"/></label><br>
+		<label>Oprocentowanie:<input type="number" min="0.1" step="0.1" id="oproc" name="oproc"/></label><br>
+		<label>Oplata stala:<input type="number" min="0" id="stala" name="stala"/></label><br>
 		<label>Rodzaj rat :
 			<select name="rata" >
 				<option value="malejaca" >malejaca</option>
