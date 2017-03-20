@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/kalkulator")
 public class kalkulator extends HttpServlet {
 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		response.sendRedirect("/");
+	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
@@ -22,6 +26,11 @@ public class kalkulator extends HttpServlet {
 
 		float kapital = kwota / raty;
 
+		if(kwota == 0 || raty == 0 || oproc == 0 )
+		{
+			response.sendRedirect("/");
+		}
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
