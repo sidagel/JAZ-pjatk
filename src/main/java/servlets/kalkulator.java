@@ -9,8 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
 @WebServlet("/kalkulator")
 public class kalkulator extends HttpServlet {
+
+
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
@@ -30,11 +39,12 @@ public class kalkulator extends HttpServlet {
 		{
 			response.sendRedirect("/");
 		}
-		
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
 		out.print("<HTML><BODY>");
+		out.print("<FORM action=\"pdf\" method=\"post\">");
 		out.print("<TABLE align=\"center\" border=\"1\">");
 		out.print("<TR>");
 		out.print("<TH>Rata nr</TH>");
@@ -51,12 +61,13 @@ public class kalkulator extends HttpServlet {
 			{
 				float odsetki = ( (float)pozostala * ((float)oproc / 100))/12 ;
 				out.print("<TR>");
-				out.print("<TH>"+rata+"</TH>");
-				out.print("<TH>"+kapital+"</TH>");
-				out.print("<TH>"+odsetki+"</TH>");
-				out.print("<TH>"+stala+"</TH>");
-				out.print("<TH>"+ (kapital + odsetki + stala)+"</TH>");
+				out.print("<TH>"+rata+"</TH><input type=\"hidden\" name=\"NR\" value=\""+ rata +"\" class=\"NR\"/>");
+				out.print("<TH>"+kapital+"</TH><input type=\"hidden\" name=\"KAPITAL\" value=\""+ kapital +"\" class=\"KAPITAL\"/>");
+				out.print("<TH>"+odsetki+"</TH><input type=\"hidden\" name=\"ODSETKI\" value=\""+ odsetki +"\" class=\"ODSETKI\"/>");
+				out.print("<TH>"+stala+"</TH><input type=\"hidden\" name=\"STALA\" value=\""+ stala +"\" class=\"STALA\"/>");
+				out.print("<TH>"+ (kapital + odsetki + stala)+"</TH><input type=\"hidden\" name=\"RATA\" value=\""+ (kapital + odsetki + stala) +"\" class=\"RATA\"/>");
 				out.print("</TR>");		
+
 			}
 		}
 		else if( request.getParameter("rata").equals("stala"))
@@ -78,18 +89,24 @@ public class kalkulator extends HttpServlet {
 			for( int rata = 1; rata <= raty;rata++)
 			{
 				out.print("<TR>");
-				out.print("<TH>"+rata+"</TH>");
-				out.print("<TH>"+kapital+"</TH>");
-				out.printf("<TH>%f",(calkowita - (double)kapital),"</TH>");
-				out.print("<TH>"+stala+"</TH>");
-				out.printf("<TH>%f",(calkowita + stala),"</TH>");			
+				out.print("<TH>"+rata+"</TH><input type=\"hidden\" name=\"NR\" value=\""+ rata +"\" class=\"NR\"/>");
+				out.print("<TH>"+kapital+"</TH><input type=\"hidden\" name=\"KAPITAL\" value=\""+ kapital +"\" class=\"KAPITAL\"/>");
+				out.printf("<TH>%f</TH></TH><input type=\"hidden\" name=\"ODSETKI\" value=\"%f\" class=\"ODSETKI\"/>",(calkowita - (double)kapital), (calkowita - (double)kapital) );
+				out.print("<TH>"+stala+"</TH></TH><input type=\"hidden\" name=\"STALA\" value=\""+ stala +"\" class=\"STALA\"/>");
+				out.printf("<TH>%f</TH><input type=\"hidden\" name=\"RATA\" value=\"%f\" class=\"RATA\"/>",(calkowita + stala), (calkowita + stala));			
 				out.print("</TR>");		
 			}
 		}
 		else
 		{
 		}
+		out.print("<input type=\"submit\" value=\"PDF\"/>");
+		out.print("</FORM>");
 		out.print("</BODY></HTML>");
+	}
+	public void test()
+	{
+		
 	}
 	/**
 	 * 

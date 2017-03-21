@@ -19,7 +19,7 @@ Formularz do wyliczania rat kredytu!
 				<option value="stala" selected>stala</option>
 			</select>
 		</label><br>
-		<input type="submit" value="Wyślij"/>
+		<input type="submit" value="Wyslij"/>
 	</form>
 </body>
 </html>
